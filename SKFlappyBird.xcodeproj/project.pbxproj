@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3E09ABEF1B34F59F009460A0 /* FBChallengeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09ABEE1B34F59F009460A0 /* FBChallengeProvider.swift */; };
+		3E6A44AD1B5655A7003D47FC /* PlaneBump.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3E6A44AC1B5655A7003D47FC /* PlaneBump.sks */; };
+		3EA582371B3D3C6100063548 /* FBReadyMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA582361B3D3C6100063548 /* FBReadyMenu.swift */; };
 		3EB4A6891B39081300ABFDBA /* SnowWeather.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3EB4A6881B39081300ABFDBA /* SnowWeather.sks */; };
 		3EB4A68B1B3908E600ABFDBA /* RainWeather.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3EB4A68A1B3908E600ABFDBA /* RainWeather.sks */; };
 		3EB4A68D1B39098C00ABFDBA /* FBWeatherLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4A68C1B39098C00ABFDBA /* FBWeatherLayer.swift */; };
@@ -55,6 +57,8 @@
 
 /* Begin PBXFileReference section */
 		3E09ABEE1B34F59F009460A0 /* FBChallengeProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBChallengeProvider.swift; sourceTree = "<group>"; };
+		3E6A44AC1B5655A7003D47FC /* PlaneBump.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlaneBump.sks; sourceTree = "<group>"; };
+		3EA582361B3D3C6100063548 /* FBReadyMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBReadyMenu.swift; sourceTree = "<group>"; };
 		3EB4A6881B39081300ABFDBA /* SnowWeather.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SnowWeather.sks; sourceTree = "<group>"; };
 		3EB4A68A1B3908E600ABFDBA /* RainWeather.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainWeather.sks; sourceTree = "<group>"; };
 		3EB4A68C1B39098C00ABFDBA /* FBWeatherLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBWeatherLayer.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 				3EBAA15C1B2EA95B00DAFCA5 /* spark.png */,
 				3EB4A6881B39081300ABFDBA /* SnowWeather.sks */,
 				3EB4A68A1B3908E600ABFDBA /* RainWeather.sks */,
+				3E6A44AC1B5655A7003D47FC /* PlaneBump.sks */,
 			);
 			name = Particles;
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 				3EEB26D01B379AB600BB1804 /* FBButton.swift */,
 				3EEB26D21B37E60300BB1804 /* FBGameOverMenu.swift */,
 				3EB4A68C1B39098C00ABFDBA /* FBWeatherLayer.swift */,
+				3EA582361B3D3C6100063548 /* FBReadyMenu.swift */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -335,6 +341,7 @@
 				3EBAA1651B2ED26B00DAFCA5 /* Graphics.atlas in Resources */,
 				3EB4A6961B39390000ABFDBA /* Crunch.caf in Resources */,
 				3EC957071B2BE709005F88F0 /* PlaneAnimations.plist in Resources */,
+				3E6A44AD1B5655A7003D47FC /* PlaneBump.sks in Resources */,
 				3EE175401B2ADBAA009303BC /* GameScene.sks in Resources */,
 				3EBAA15E1B2EA95B00DAFCA5 /* spark.png in Resources */,
 				3EB4A6941B39390000ABFDBA /* Click.caf in Resources */,
@@ -361,6 +368,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EA582371B3D3C6100063548 /* FBReadyMenu.swift in Sources */,
 				3EEB26D31B37E60300BB1804 /* FBGameOverMenu.swift in Sources */,
 				3EDB3E611B316EB100B88C42 /* FBCollectable.swift in Sources */,
 				3EE1757D1B2AE4BD009303BC /* FBGameScene.swift in Sources */,

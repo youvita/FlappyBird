@@ -16,7 +16,7 @@ class FBScrollingNode: SKNode {
     func updateWithTimeElapse(timeElapsed:NSTimeInterval){
         if scrolling {
             let speedFrame = self.horizontalScrollSpeed * CGFloat(timeElapsed) as CGFloat
-            self.position  = CGPointMake(self.position.x + speedFrame , self.position.y);
+            self.position  = CGPointMake(self.position.x + speedFrame , self.position.y)
         }
     }
 }

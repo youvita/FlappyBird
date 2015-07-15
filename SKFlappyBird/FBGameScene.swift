@@ -10,7 +10,13 @@ import SpriteKit
 
 private let kMinFPS : CGFloat = 10.0 / 60.0
 
-class FBGameScene: SKScene , SKPhysicsContactDelegate , FBCollectableProtocolDelegate{
+enum GameState {
+    case GAMEREADY
+    case GAMERUNNING
+    case GAMEOVER
+}
+
+class FBGameScene: SKScene , SKPhysicsContactDelegate , FBCollectableProtocolDelegate , FBPlaneDelegate{
     var mainLayerGame      : SKNode = SKNode()
     var player             : FBPlane = FBPlane()
     var background         : FBScrollingLayer!
@@ -19,7 +25,9 @@ class FBGameScene: SKScene , SKPhysicsContactDelegate , FBCollectableProtocolDel
     var scoreLabel         : FBBitmapFontLabel!
     var gameOverMenu       : FBGameOverMenu!
     var weather            : FBWeatherLayer!
-
+    var readyMenu          : FBReadyMenu!
+    var gameState          : GameState!
+    var bumpEffect         : SKEmitterNode!
     var scoreValue : Int = 0
     var score : Int {
         get{
@@ -46,7 +54,7 @@ class FBGameScene: SKScene , SKPhysicsContactDelegate , FBCollectableProtocolDel
         mainLayerGame = SKNode()
         self.addChild(mainLayerGame)
         
-        // Set background colour to sky blue.
+        // Set background color to sky blue.
         self.backgroundColor = SKColor(red:0.835294118, green:0.929411765, blue:0.968627451, alpha:1.0)
         
         let graphicAtlas = SKTextureAtlas(named: "Graphics")
@@ -109,6 +117,11 @@ class FBGameScene: SKScene , SKPhysicsContactDelegate , FBCollectableProtocolDel
         /* Setup sound */
 //        SoundManager.sharedManager().prepareToPlayWithSound("Crunch.caf")
         
+        
+        /* Setup ready menu */
+        readyMenu = FBReadyMenu(size: size, planePoistion: CGPointMake(self.size.width * 0.3, self.size.height * 0.5))
+        self.addChild(readyMenu)
+        
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -130,9 +143,10 @@ class FBGameScene: SKScene , SKPhysicsContactDelegate , FBCollectableProtocolDel
             background.updateWithTimeElapse(timeElapse)
             foreground.updateWithTimeElapse(timeElapse)
             obstacles.updateWithTimeElapse(timeElapse)
-        }else{
-            self.setBump()
         }
+//            else{
+//            self.setBump()
+//        }
     }
     
     // MARK: - FBCollectableDelegate
@@ -143,6 +157,7 @@ class FBGameScene: SKScene , SKPhysicsContactDelegate , FBCollectableProtocolDel
     
     // MARK: - SKPhysicsContactDelegate
     func didBeginContact(contact: SKPhysicsContact) {
+        player.delegate = self
         if contact.bodyA.categoryBitMask == kFBCategoryPlane {
             println("A")
             self.player.setCollided(contact.bodyB)
@@ -160,23 +175,51 @@ class FBGameScene: SKScene , SKPhysicsContactDelegate , FBCollectableProtocolDel
         for touch in (touches as! Set<UITouch>) {
 //            player.isEngineRunning = !player.isEngineRunning
 //            player.setRandomColor()
+            
             if player.isCrashed {
                 newGame()
+                bumpEffect.removeFromParent()
             }else{
-                self.scoreLabel.hidden = true
-                player.setFlap()
-                player.physicsBody?.affectedByGravity = true
-//                player.isAccelerating                 = true
-                obstacles.scrolling                   = true
+                if self.gameState == GameState.GAMEREADY {
+                    self.readyMenu.hide()
+                    self.scoreLabel.hidden = true
+//                    player.setFlap()
+                    player.physicsBody?.affectedByGravity = true
+                    obstacles.scrolling                   = true
+                    self.gameState = GameState.GAMERUNNING
+                }
+                
+                if self.gameState == GameState.GAMERUNNING {
+                     player.isAccelerating                 = true
+                }
             }
         }
     }
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         for touch in (touches as! Set<UITouch>){
-//            player.isAccelerating = false
+            if self.gameState == GameState.GAMERUNNING {
+                player.isAccelerating = false
+            }
         }
         
+    }
+    
+    // MARK: - FBPlane Delegate
+    func didCrash() {
+        println("true")
+        self.setBump() // set background crash
+        
+//         println("\(player.position)")
+//        let bumpPath = NSBundle.mainBundle().pathForResource("PlaneBump", ofType: "sks")
+//        bumpEffect = NSKeyedUnarchiver.unarchiveObjectWithFile(bumpPath!) as! SKEmitterNode
+////        bumpEffect.position = player.position
+//        player.addChild(bumpEffect)
+        
+//        self.newGame()
+//        self.readyMenu.show()
+//        player.position                       = CGPointMake(self.size.width * 0.3, self.size.height * 0.5)
+//        player.physicsBody?.affectedByGravity = true
     }
     
     // MARK: - Method Implement
@@ -254,6 +297,7 @@ class FBGameScene: SKScene , SKPhysicsContactDelegate , FBCollectableProtocolDel
         player.reset()
         
         self.score = 0
+        self.gameState = GameState.GAMEREADY
         
     }
     

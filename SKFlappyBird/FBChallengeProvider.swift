@@ -35,6 +35,11 @@ class FBChallengeProvider: NSObject {
         return Provider.sharedInstance
     }
     
+    
+    /* This method will create different challenges by design position in photoshop.
+     * Size background that need to create in photoshop is 1136 x 640.
+     * Try to make challenges style yourself.
+     */
     func loadChallenges(){
         challenges = NSMutableArray()
         // Challenge 1

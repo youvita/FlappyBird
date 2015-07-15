@@ -11,6 +11,10 @@ import SpriteKit
 private let kPlaneAnimation : String = "PlaneAnimation"
 private let kMaxAltitude : CGFloat   = 300.0
 
+protocol FBPlaneDelegate {
+    func didCrash()
+}
+
 class FBPlane: SKSpriteNode {
    
     let defaultTexture : SKTexture       = SKTexture(imageNamed: "planeBlue1")
@@ -18,9 +22,10 @@ class FBPlane: SKSpriteNode {
     
     var puffTrailEmitter : SKEmitterNode = SKEmitterNode()
     var puffTrailBirthRate : CGFloat     = CGFloat()
-//    var isAccelerating : Bool            = Bool()
+    var isAccelerating : Bool            = Bool()
     var crashTintAction : SKAction = SKAction()
     var engineSound : Sound!
+    var delegate : FBPlaneDelegate?
     
     var isEngineRunning : Bool = false {
         didSet{
@@ -42,7 +47,7 @@ class FBPlane: SKSpriteNode {
         didSet{
             if isCrashed {
                 isEngineRunning = false
-//                isAccelerating = false
+                isAccelerating = false
             }
         }
     }
@@ -149,9 +154,9 @@ class FBPlane: SKSpriteNode {
     }
     
     func update(){
-//        if isAccelerating && !isCrashed && self.position.y < kMaxAltitude {
-//            self.physicsBody?.applyForce(CGVectorMake(0.0, 100))
-//        }
+        if isAccelerating && !isCrashed && self.position.y < kMaxAltitude {
+            self.physicsBody?.applyForce(CGVectorMake(0.0, 100))
+        }
         
         /* Make plane roate up and down */
         if !isCrashed {
@@ -173,9 +178,10 @@ class FBPlane: SKSpriteNode {
                 println("hied")
                 // Hied Ground
                 isCrashed = true
-                self.runAction(crashTintAction)
+                self.runAction(SKAction.sequence([crashTintAction,SKAction.waitForDuration(0.1)]))
                 SoundManager.sharedManager().playSound("Crunch.caf")
-            
+                self.delegate?.didCrash()
+                
             }
             if body.categoryBitMask == kFBCategoryCollectable {
                 println("hied star")
