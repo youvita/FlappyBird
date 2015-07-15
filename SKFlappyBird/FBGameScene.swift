@@ -27,7 +27,7 @@ class FBGameScene: SKScene , SKPhysicsContactDelegate , FBCollectableProtocolDel
     var weather            : FBWeatherLayer!
     var readyMenu          : FBReadyMenu!
     var gameState          : GameState!
-    var bumpEffect         : SKEmitterNode!
+//    var bumpEffect         : SKEmitterNode!
     var scoreValue : Int = 0
     var score : Int {
         get{
@@ -178,7 +178,7 @@ class FBGameScene: SKScene , SKPhysicsContactDelegate , FBCollectableProtocolDel
             
             if player.isCrashed {
                 newGame()
-                bumpEffect.removeFromParent()
+//                bumpEffect.removeFromParent()
             }else{
                 if self.gameState == GameState.GAMEREADY {
                     self.readyMenu.hide()
