@@ -56,6 +56,7 @@ class FBPlane: SKSpriteNode {
         super.init(texture: defaultTexture, color: nil, size: defaultTexture.size())
         
         /* Setup physics body with path */
+        // This is link for drawing path http://stackoverflow.com/questions/19040144/spritekits-skphysicsbody-with-polygon-helper-tool
         var offsetX = self.frame.size.width * self.anchorPoint.x as CGFloat
         var offsetY = self.frame.size.height * self.anchorPoint.y as CGFloat
         
